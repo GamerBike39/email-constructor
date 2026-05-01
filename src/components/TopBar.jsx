@@ -1,7 +1,7 @@
 import useEditorStore from '../store/useEditorStore'
 import { exportToHTML } from '../utils/exportHTML'
 
-export default function TopBar({ previewMode, setPreviewMode, onOpenPreview }) {
+export default function TopBar({ previewMode, setPreviewMode, onOpenPreview, onOpenTemplates }) {
   const { templateSettings, exportJSON, loadTemplate, clearCanvas, blocks, undo, redo, _history, _future } = useEditorStore()
 
   const canUndo = _history && _history.length > 0
@@ -96,6 +96,9 @@ export default function TopBar({ previewMode, setPreviewMode, onOpenPreview }) {
       <div className="topbar-right">
         <button className="btn btn-ghost" onClick={onOpenPreview} title="Aperçu rendu">
           <span>Aperçu</span>
+        </button>
+        <button className="btn btn-ghost btn-templates" onClick={onOpenTemplates} title="Charger un modèle">
+          <span>📄 Modèles</span>
         </button>
         <button className="btn btn-ghost" onClick={handleLoadJSON} title="Charger un template JSON">
           <span>Charger</span>

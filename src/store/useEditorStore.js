@@ -162,6 +162,22 @@ const useEditorStore = create(
     get()._pushHistory()
     set({ blocks: [], selectedId: null })
   },
+
+  applyTemplate: (tpl) => {
+    get()._pushHistory()
+    // Remap IDs to ensure uniqueness
+    const idMap = {}
+    const newBlocks = tpl.blocks.map((block) => {
+      const newId = uuidv4()
+      idMap[block.id] = newId
+      return { ...JSON.parse(JSON.stringify(block)), id: newId }
+    })
+    set({
+      blocks: newBlocks,
+      templateSettings: { ...get().templateSettings, ...tpl.templateSettings },
+      selectedId: null,
+    })
+  },
     }),
     { 
       name: 'mailcraft-editor-v1',

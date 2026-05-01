@@ -13,6 +13,7 @@ import Canvas from './components/Canvas'
 import RightPanel from './components/RightPanel'
 import PreviewModal from './components/PreviewModal'
 import RichTextModal from './components/RichTextModal'
+import TemplatesModal from './components/TemplatesModal'
 import FloatingRTEBar from './components/FloatingRTEBar'
 import useEditorStore from './store/useEditorStore'
 import './App.css'
@@ -22,6 +23,7 @@ export default function App() {
   const [activeDrag, setActiveDrag] = useState(null)
   const [previewMode, setPreviewMode] = useState('desktop')
   const [showPreview, setShowPreview] = useState(false)
+  const [showTemplates, setShowTemplates] = useState(false)
   const [rteTarget, setRteTarget] = useState(null) // { blockId, fieldKey }
   const [rightPanelWidth, setRightPanelWidth] = useState(268)
   const isResizingRef = useRef(false)
@@ -124,6 +126,7 @@ export default function App() {
           previewMode={previewMode}
           setPreviewMode={setPreviewMode}
           onOpenPreview={() => setShowPreview(true)}
+          onOpenTemplates={() => setShowTemplates(true)}
         />
         <div className="editor-layout">
           <LeftPanel />
@@ -147,6 +150,7 @@ export default function App() {
         ) : null}
       </DragOverlay>
       {showPreview && <PreviewModal onClose={() => setShowPreview(false)} />}
+      {showTemplates && <TemplatesModal onClose={() => setShowTemplates(false)} />}
       {rteTarget && (
         <RichTextModal
           blockId={rteTarget.blockId}
